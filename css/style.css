@@ -175,7 +175,7 @@ p {
   padding-top: 1rem;
 }
 
-.post-form-footer input {
+.post-form-footer select {
   background: transparent;
   border: none;
   color: var(--muted);
@@ -183,10 +183,14 @@ p {
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.post-form-footer input::placeholder {
-  color: #333;
+.post-form-footer select option {
+  background: var(--bg);
+  color: var(--text);
 }
 
 .post-form-footer button {

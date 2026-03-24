@@ -10,7 +10,9 @@ const postSubmit = document.getElementById('post-submit');
 
 function formatDate(dateStr) {
   const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    + ' at '
+    + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
 function renderPost(post) {
