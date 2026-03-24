@@ -36,23 +36,14 @@
     <section id="posts">
 
       <div class="post-form">
-        <textarea placeholder="Write something..."></textarea>
+        <textarea id="post-body" placeholder="Write something..."></textarea>
         <div class="post-form-footer">
-          <input type="text" placeholder="Your name" />
-          <button type="submit">Post</button>
+          <input id="post-author" type="text" placeholder="Your name" />
+          <button id="post-submit" type="submit">Post</button>
         </div>
       </div>
 
-      <div class="post-list">
-        <div class="post">
-          <p class="post-body">He had this way of making you feel like the only person in the room.</p>
-          <span class="post-meta">Dyllan &middot; March 2026</span>
-        </div>
-        <div class="post">
-          <p class="post-body">I keep finding things he recommended to me that I never got around to.</p>
-          <span class="post-meta">Owen &middot; March 2026</span>
-        </div>
-      </div>
+      <div id="post-list" class="post-list"></div>
 
     </section>
 
@@ -62,6 +53,7 @@
     <p>A place just for us.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
