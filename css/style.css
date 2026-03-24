@@ -177,15 +177,15 @@ p {
 
 .post-form-footer select {
   background: transparent;
-  border: none;
+  border: 1px solid #2a2a2a;
+  border-radius: 0;
   color: var(--muted);
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   outline: none;
   cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
+  padding: 0.4rem 0.6rem;
 }
 
 .post-form-footer select option {
