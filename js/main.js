@@ -16,9 +16,14 @@ function formatDate(dateStr) {
 function renderPost(post) {
   const div = document.createElement('div');
   div.className = 'post';
+  div.dataset.id = post.id;
   div.innerHTML = `
     <p class="post-body">${post.body}</p>
     <span class="post-meta">${post.author} &middot; ${formatDate(post.created_at)}</span>
+    <span class="post-actions">
+      <button class="post-action" onclick="editPost(${post.id})">edit</button>
+      <button class="post-action" onclick="deletePost(${post.id})">delete</button>
+    </span>
   `;
   postList.prepend(div);
 }
@@ -56,6 +61,69 @@ async function submitPost() {
   postBody.value = '';
   renderPost(data);
   postSubmit.disabled = false;
+}
+
+async function deletePost(id) {
+  const div = document.querySelector(`.post[data-id="${id}"]`);
+  if (!div) return;
+
+  const { error } = await client
+    .from('Posts')
+    .delete()
+    .eq('id', id);
+
+  if (error) { console.error(error); return; }
+  div.remove();
+}
+
+async function editPost(id) {
+  const div = document.querySelector(`.post[data-id="${id}"]`);
+  if (!div) return;
+
+  const bodyEl = div.querySelector('.post-body');
+  const currentText = bodyEl.textContent;
+
+  const textarea = document.createElement('textarea');
+  textarea.className = 'edit-textarea';
+  textarea.value = currentText;
+
+  const saveBtn = document.createElement('button');
+  saveBtn.className = 'post-action';
+  saveBtn.textContent = 'save';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.className = 'post-action';
+  cancelBtn.textContent = 'cancel';
+
+  const editActions = document.createElement('span');
+  editActions.className = 'post-actions';
+  editActions.appendChild(saveBtn);
+  editActions.appendChild(cancelBtn);
+
+  const originalHTML = div.innerHTML;
+  bodyEl.replaceWith(textarea);
+  div.querySelector('.post-actions').replaceWith(editActions);
+
+  textarea.focus();
+
+  cancelBtn.addEventListener('click', () => {
+    div.innerHTML = originalHTML;
+  });
+
+  saveBtn.addEventListener('click', async () => {
+    const newBody = textarea.value.trim();
+    if (!newBody) return;
+
+    const { error } = await client
+      .from('Posts')
+      .update({ body: newBody })
+      .eq('id', id);
+
+    if (error) { console.error(error); return; }
+
+    div.innerHTML = originalHTML;
+    div.querySelector('.post-body').textContent = newBody;
+  });
 }
 
 postSubmit.addEventListener('click', submitPost);

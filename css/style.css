@@ -228,6 +228,42 @@ p {
   letter-spacing: 0.1em;
 }
 
+.post-actions {
+  margin-left: 1rem;
+}
+
+.post-action {
+  background: none;
+  border: none;
+  color: #2a2a2a;
+  font-family: system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 0.75rem;
+  transition: color 0.2s;
+}
+
+.post-action:hover {
+  color: var(--muted);
+}
+
+.edit-textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  padding: 0.75rem;
+  resize: none;
+  outline: none;
+  min-height: 80px;
+  margin-bottom: 0.75rem;
+}
+
 /* Footer */
 footer {
   text-align: center;
