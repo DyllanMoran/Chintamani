@@ -108,6 +108,21 @@ section:last-child {
   margin-top: 1.5rem;
 }
 
+/* Explainer */
+.explainer {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.explainer p {
+  color: var(--muted);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 2;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
 /* Headings */
 h2 {
   font-size: 0.8rem;
