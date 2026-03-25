@@ -143,12 +143,17 @@ p {
   filter: grayscale(0%);
 }
 
+#posts {
+  padding-top: 2rem;
+}
+
 .section-label {
   color: var(--muted);
   font-size: 0.95rem;
   font-style: italic;
   line-height: 1.8;
   margin-bottom: 3rem;
+  text-align: center;
 }
 
 /* Post Form */
