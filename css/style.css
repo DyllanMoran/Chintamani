@@ -30,6 +30,8 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
   /* Safe area padding for iPhone notch + home indicator */
   padding-top: env(safe-area-inset-top);
   padding-left: env(safe-area-inset-left);
@@ -41,7 +43,7 @@ body {
 /* ===== Header & Nav ===== */
 header {
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top);
   z-index: 100;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
@@ -178,7 +180,7 @@ nav > ul > li > a:hover {
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  background: var(--bg-raised);
+  background: var(--bg-surface);
   border: 1px solid var(--border);
   list-style: none;
   min-width: 12rem;
@@ -227,7 +229,7 @@ nav > ul > li > a:hover {
   box-shadow: none;
   border: none;
   border-top: 1px solid var(--border);
-  background: var(--bg-surface);
+  background: var(--bg-raised);
   min-width: unset;
   padding: 0.25rem 0;
 }
@@ -238,10 +240,11 @@ nav > ul > li > a:hover {
 
 /* ===== Main Content ===== */
 main {
+  flex: 1;
   max-width: 820px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
-  padding-bottom: max(3rem, calc(2rem + env(safe-area-inset-bottom)));
+  padding-bottom: 2rem;
   padding-left: max(1.5rem, env(safe-area-inset-left));
   padding-right: max(1.5rem, env(safe-area-inset-right));
 }
@@ -480,7 +483,6 @@ footer {
     min-width: unset;
     border-left: none;
     border-right: none;
-    border-top: none;
   }
 
   .nav-dropdown li a {
