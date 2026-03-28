@@ -31,12 +31,15 @@ header {
   background-color: var(--bg);
   border-bottom: 1px solid #1e1e1e;
   z-index: 100;
+  padding-top: env(safe-area-inset-top);
 }
 
 nav {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 1.2rem 1.5rem;
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -283,6 +286,7 @@ p {
 footer {
   text-align: center;
   padding: 3rem;
+  padding-bottom: max(3rem, env(safe-area-inset-bottom));
   color: #2a2a2a;
   font-family: system-ui, sans-serif;
   font-size: 0.75rem;
