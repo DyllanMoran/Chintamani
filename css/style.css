@@ -426,8 +426,17 @@ main {
 
 /* ===== Footer ===== */
 footer {
-  height: 1px;
-  padding-bottom: env(safe-area-inset-bottom);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  padding-bottom: max(2rem, calc(1.5rem + env(safe-area-inset-bottom)));
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 /* ===== Mobile ===== */
