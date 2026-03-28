@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Chintamani</title>
+  <title>Colby — Chintamani</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
@@ -37,18 +37,40 @@
   <main>
 
     <section class="hero">
-      <h1>Chintamani</h1>
-      <p class="subtitle">Далай, тэнгис, мөсөн тив минь<br>Гол мөрөн, цэнгэг нуурууд минь<br>Үнэт эрдэнэ Чинта-мани<br>Хүслийг хангагч<br>Чандмань эрдэнэ</p>
+      <h1>Colby</h1>
+      <p class="subtitle">Memory believes before knowing remembers.<br>Believes longer than recollects, longer than knowing even wonders.</p>
     </section>
 
-    <section class="explainer">
-      <p>Owen, I created this place as a place just for us. We're living in this rent stabilized apartment, we can't afford a house yet, but I'm hoping that this website can be a place just for us with infinite space. Our very own House of Leaves, but with no monster at the center.</p>
+    <section id="photos">
+      <div class="photo-grid">
+        <img src="images/colby/20210425_123930_Original.jpeg" alt="" />
+        <img src="images/colby/20220127_110013_Original.jpeg" alt="" />
+        <img src="images/colby/20210427_211938_Original.jpeg" alt="" />
+        <img src="images/colby/IMG_3859.jpeg" alt="" />
+      </div>
+    </section>
+
+    <section id="posts">
+
+      <p class="section-label">He's on my mind.<br>Maybe this will give those thoughts and feelings a place to go.</p>
+
+      <div class="post-form">
+        <textarea id="post-body" placeholder="Write something..."></textarea>
+        <div class="post-form-footer">
+          <button id="post-submit" type="submit">Post</button>
+        </div>
+      </div>
+
+      <div id="post-list" class="post-list"></div>
+
     </section>
 
   </main>
 
   <footer></footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/nav.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
