@@ -19,20 +19,16 @@ function renderAffirmation(entry) {
   div.className = 'post-item';
   div.dataset.id = entry.id;
   div.innerHTML =
-    '<p class="post-body">' + entry.feeling + '</p>' +
-    '<div class="post-meta">' +
-      '<span>' + formatDate(entry.created_at) + '</span>' +
-      '<span class="post-actions">' +
-        '<button class="post-actions button" onclick="editAffirmation(' + entry.id + ')">edit</button>' +
-        '<button class="post-actions button" onclick="deleteAffirmation(' + entry.id + ')">delete</button>' +
-      '</span>' +
-    '</div>';
+    '<span class="post-body">I am ' + entry.body + '</span> ' +
+    '<span class="post-meta">(' + formatDate(entry.created_at) +
+      ' · <button class="post-actions button" onclick="editAffirmation(' + entry.id + ')">edit</button>' +
+      ' · <button class="post-actions button" onclick="deleteAffirmation(' + entry.id + ')">delete</button>)</span>';
   affirmationList.appendChild(div);
 }
 
 async function loadAffirmations() {
   var { data, error } = await client
-    .from('This is Real.')
+    .from('This is Real')
     .select('*')
     .order('created_at', { ascending: false });
 
@@ -47,8 +43,8 @@ async function submitAffirmation() {
   affirmationSubmit.disabled = true;
 
   var { data, error } = await client
-    .from('This is Real.')
-    .insert([{ feeling: body }])
+    .from('This is Real')
+    .insert([{ body: body }])
     .select()
     .single();
 
@@ -63,14 +59,10 @@ async function submitAffirmation() {
   newEntry.className = 'post-item';
   newEntry.dataset.id = data.id;
   newEntry.innerHTML =
-    '<p class="post-body">' + data.feeling + '</p>' +
-    '<div class="post-meta">' +
-      '<span>' + formatDate(data.created_at) + '</span>' +
-      '<span class="post-actions">' +
-        '<button class="post-actions button" onclick="editAffirmation(' + data.id + ')">edit</button>' +
-        '<button class="post-actions button" onclick="deleteAffirmation(' + data.id + ')">delete</button>' +
-      '</span>' +
-    '</div>';
+    '<span class="post-body">I am ' + data.body + '</span> ' +
+    '<span class="post-meta">(' + formatDate(data.created_at) +
+      ' · <button class="post-actions button" onclick="editAffirmation(' + data.id + ')">edit</button>' +
+      ' · <button class="post-actions button" onclick="deleteAffirmation(' + data.id + ')">delete</button>)</span>';
   affirmationList.prepend(newEntry);
   affirmationSubmit.disabled = false;
 }
@@ -80,7 +72,7 @@ async function deleteAffirmation(id) {
   if (!div) return;
 
   var { error } = await client
-    .from('This is Real.')
+    .from('This is Real')
     .delete()
     .eq('id', id);
 
@@ -93,48 +85,34 @@ async function editAffirmation(id) {
   if (!div) return;
 
   var bodyEl = div.querySelector('.post-body');
-  var currentText = bodyEl.textContent;
-
-  var textarea = document.createElement('textarea');
-  textarea.className = 'edit-textarea';
-  textarea.value = currentText;
-
-  var saveBtn = document.createElement('button');
-  saveBtn.className = 'post-actions button';
-  saveBtn.textContent = 'save';
-
-  var cancelBtn = document.createElement('button');
-  cancelBtn.className = 'post-actions button';
-  cancelBtn.textContent = 'cancel';
-
-  var editActions = document.createElement('span');
-  editActions.className = 'post-actions';
-  editActions.appendChild(saveBtn);
-  editActions.appendChild(cancelBtn);
-
+  var currentText = bodyEl.textContent.replace(/^I am /, '');
   var originalHTML = div.innerHTML;
-  bodyEl.replaceWith(textarea);
-  div.querySelector('.post-actions').replaceWith(editActions);
 
-  textarea.focus();
+  bodyEl.innerHTML = 'I am <span class="edit-inline" contenteditable="true">' + currentText + '</span>';
+  var editable = bodyEl.querySelector('.edit-inline');
+  editable.focus();
 
-  cancelBtn.addEventListener('click', function () {
+  var meta = div.querySelector('.post-meta');
+  meta.innerHTML = '(<button class="post-actions" data-action="save">save</button>' +
+    ' · <button class="post-actions" data-action="cancel">cancel</button>)';
+
+  meta.querySelector('[data-action="cancel"]').addEventListener('click', function () {
     div.innerHTML = originalHTML;
   });
 
-  saveBtn.addEventListener('click', async function () {
-    var newBody = textarea.value.trim();
+  meta.querySelector('[data-action="save"]').addEventListener('click', async function () {
+    var newBody = editable.textContent.trim();
     if (!newBody) return;
 
     var { error } = await client
-      .from('This is Real.')
-      .update({ feeling: newBody })
+      .from('This is Real')
+      .update({ body: newBody })
       .eq('id', id);
 
     if (error) { console.error(error); return; }
 
     div.innerHTML = originalHTML;
-    div.querySelector('.post-body').textContent = newBody;
+    div.querySelector('.post-body').textContent = 'I am ' + newBody;
   });
 }
 

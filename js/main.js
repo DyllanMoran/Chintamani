@@ -16,15 +16,13 @@ function formatDate(dateStr) {
 
 function renderPost(post) {
   var div = document.createElement('div');
-  div.className = 'post';
+  div.className = 'post-item';
   div.dataset.id = post.id;
   div.innerHTML =
-    '<p class="post-body">' + post.body + '</p>' +
-    '<span class="post-meta">' + formatDate(post.created_at) + '</span>' +
-    '<span class="post-actions">' +
-      '<button class="post-action" onclick="editPost(' + post.id + ')">edit</button>' +
-      '<button class="post-action" onclick="deletePost(' + post.id + ')">delete</button>' +
-    '</span>';
+    '<span class="post-body">' + post.body + '</span> ' +
+    '<span class="post-meta">(' + formatDate(post.created_at) +
+      ' · <button class="post-actions" onclick="editPost(' + post.id + ')">edit</button>' +
+      ' · <button class="post-actions" onclick="deletePost(' + post.id + ')">delete</button>)</span>';
   postList.prepend(div);
 }
 
@@ -62,7 +60,7 @@ async function submitPost() {
 }
 
 async function deletePost(id) {
-  var div = document.querySelector('.post[data-id="' + id + '"]');
+  var div = document.querySelector('.post-item[data-id="' + id + '"]');
   if (!div) return;
 
   var { error } = await client
@@ -75,41 +73,27 @@ async function deletePost(id) {
 }
 
 async function editPost(id) {
-  var div = document.querySelector('.post[data-id="' + id + '"]');
+  var div = document.querySelector('.post-item[data-id="' + id + '"]');
   if (!div) return;
 
   var bodyEl = div.querySelector('.post-body');
   var currentText = bodyEl.textContent;
-
-  var textarea = document.createElement('textarea');
-  textarea.className = 'edit-textarea';
-  textarea.value = currentText;
-
-  var saveBtn = document.createElement('button');
-  saveBtn.className = 'post-action';
-  saveBtn.textContent = 'save';
-
-  var cancelBtn = document.createElement('button');
-  cancelBtn.className = 'post-action';
-  cancelBtn.textContent = 'cancel';
-
-  var editActions = document.createElement('span');
-  editActions.className = 'post-actions';
-  editActions.appendChild(saveBtn);
-  editActions.appendChild(cancelBtn);
-
   var originalHTML = div.innerHTML;
-  bodyEl.replaceWith(textarea);
-  div.querySelector('.post-actions').replaceWith(editActions);
 
-  textarea.focus();
+  bodyEl.innerHTML = '<span class="edit-inline" contenteditable="true">' + currentText + '</span>';
+  var editable = bodyEl.querySelector('.edit-inline');
+  editable.focus();
 
-  cancelBtn.addEventListener('click', function () {
+  var meta = div.querySelector('.post-meta');
+  meta.innerHTML = '(<button class="post-actions" data-action="save">save</button>' +
+    ' · <button class="post-actions" data-action="cancel">cancel</button>)';
+
+  meta.querySelector('[data-action="cancel"]').addEventListener('click', function () {
     div.innerHTML = originalHTML;
   });
 
-  saveBtn.addEventListener('click', async function () {
-    var newBody = textarea.value.trim();
+  meta.querySelector('[data-action="save"]').addEventListener('click', async function () {
+    var newBody = editable.textContent.trim();
     if (!newBody) return;
 
     var { error } = await client

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>This is Real. — Chintamani</title>
+  <title>This is Real — Chintamani</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="public/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png" />
@@ -28,7 +28,12 @@
             <span class="menu-icon" aria-hidden="true"></span>
           </button>
           <ul class="nav-dropdown">
-            <li><a href="this-is-real.html">This is Real.</a></li>
+            <li class="nav-group">
+              <button class="nav-group-label" aria-expanded="false">His Dark Materials</button>
+              <ul class="nav-dropdown">
+                <li><a href="this-is-real.html">This is Real</a></li>
+              </ul>
+            </li>
             <li class="nav-group">
               <button class="nav-group-label" aria-expanded="false">Ward of Remembering</button>
               <ul class="nav-dropdown">
@@ -44,16 +49,14 @@
   <main>
 
     <section class="hero">
-      <h1>This is Real.</h1>
+      <h1>This is Real</h1>
     </section>
 
     <section id="affirmations">
 
-      <div class="post-form">
-        <textarea id="affirmation-body" placeholder="I feel..."></textarea>
-        <div class="post-form-footer">
-          <button id="affirmation-submit" type="submit">it is real.</button>
-        </div>
+      <div class="post-form affirmation-form">
+        <label class="affirmation-prompt">I am<input id="affirmation-body" type="text" class="affirmation-input" autocomplete="off" /></label>
+        <button id="affirmation-submit" class="affirmation-submit">It is so.</button>
       </div>
 
       <div id="affirmation-list" class="post-list"></div>
