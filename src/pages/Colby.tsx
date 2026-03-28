@@ -4,7 +4,6 @@ import { supabase } from '../lib/supabase'
 type Post = {
   id: number
   body: string
-  author: string
   created_at: string
 }
 
@@ -38,7 +37,7 @@ export default function Colby() {
   async function loadPosts() {
     if (!supabase) return
     const { data, error } = await supabase
-      .from('Posts')
+      .from('Colby')
       .select('*')
       .order('created_at', { ascending: false })
     if (error) { console.error(error); return }
@@ -51,8 +50,8 @@ export default function Colby() {
     if (!trimmed) return
     setSubmitting(true)
     const { data, error } = await supabase
-      .from('Posts')
-      .insert([{ body: trimmed, author: 'Dyllan' }])
+      .from('Colby')
+      .insert([{ body: trimmed }])
       .select()
       .single()
     if (error) { console.error(error); setSubmitting(false); return }
@@ -63,7 +62,7 @@ export default function Colby() {
 
   async function deletePost(id: number) {
     if (!supabase) return
-    const { error } = await supabase.from('Posts').delete().eq('id', id)
+    const { error } = await supabase.from('Colby').delete().eq('id', id)
     if (error) { console.error(error); return }
     setPosts(prev => prev.filter(p => p.id !== id))
   }
@@ -82,7 +81,7 @@ export default function Colby() {
     if (!supabase) return
     const trimmed = editBody.trim()
     if (!trimmed) return
-    const { error } = await supabase.from('Posts').update({ body: trimmed }).eq('id', id)
+    const { error } = await supabase.from('Colby').update({ body: trimmed }).eq('id', id)
     if (error) { console.error(error); return }
     setPosts(prev => prev.map(p => p.id === id ? { ...p, body: trimmed } : p))
     setEditingId(null)
@@ -146,7 +145,7 @@ export default function Colby() {
                 <>
                   <p className="post-body">{post.body}</p>
                   <span className="post-meta">
-                    {post.author} &middot; {formatDate(post.created_at)}
+                    {formatDate(post.created_at)}
                   </span>
                   <span className="post-actions">
                     <button className="post-action" onClick={() => startEdit(post)}>edit</button>
