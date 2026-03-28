@@ -93,17 +93,21 @@ nav ul a.active {
 }
 
 .nav-group-label {
+  background: none;
+  border: none;
+  padding: 0;
   color: var(--muted);
   font-family: system-ui, sans-serif;
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  cursor: default;
+  cursor: pointer;
   transition: color 0.2s;
   user-select: none;
 }
 
-.nav-group:hover .nav-group-label {
+.nav-group:hover .nav-group-label,
+.nav-group.open .nav-group-label {
   color: var(--text);
 }
 
@@ -124,7 +128,8 @@ nav ul a.active {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.nav-group:hover .nav-dropdown {
+.nav-group:hover .nav-dropdown,
+.nav-group.open .nav-dropdown {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
