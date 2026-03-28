@@ -23,11 +23,18 @@
     <nav>
       <a href="index.html" class="site-title">Chintamani</a>
       <ul>
-        <li><a href="dark-materials.html">Dark Materials</a></li>
         <li class="nav-group">
-          <button class="nav-group-label" aria-expanded="false">Ward of Remembering</button>
+          <button class="nav-group-label nav-menu-btn" aria-expanded="false" aria-label="Menu">
+            <span class="menu-icon" aria-hidden="true"></span>
+          </button>
           <ul class="nav-dropdown">
-            <li><a href="colby.html">Colby</a></li>
+            <li><a href="this-is-real.html">This is Real.</a></li>
+            <li class="nav-group">
+              <button class="nav-group-label" aria-expanded="false">Ward of Remembering</button>
+              <ul class="nav-dropdown">
+                <li><a href="colby.html">Colby</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -52,7 +59,7 @@
 
     <section id="posts">
 
-      <p class="section-label">He's on my mind.<br>Maybe this will give those thoughts and feelings a place to go.</p>
+      <p class="section-label">What's on your mind?</p>
 
       <div class="post-form">
         <textarea id="post-body" placeholder="Write something..."></textarea>
@@ -67,7 +74,7 @@
 
   </main>
 
-  <footer></footer>
+  <footer>Established 2026. Funded by the Institute of Dark Materialism.</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/nav.js"></script>
