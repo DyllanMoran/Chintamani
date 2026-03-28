@@ -19,7 +19,7 @@ function renderAffirmation(entry) {
   div.className = 'post-item';
   div.dataset.id = entry.id;
   div.innerHTML =
-    '<p class="post-body">' + entry.body + '</p>' +
+    '<p class="post-body">' + entry.feeling + '</p>' +
     '<div class="post-meta">' +
       '<span>' + formatDate(entry.created_at) + '</span>' +
       '<span class="post-actions">' +
@@ -48,7 +48,7 @@ async function submitAffirmation() {
 
   var { data, error } = await client
     .from('This is Real.')
-    .insert([{ body: body }])
+    .insert([{ feeling: body }])
     .select()
     .single();
 
@@ -63,7 +63,7 @@ async function submitAffirmation() {
   newEntry.className = 'post-item';
   newEntry.dataset.id = data.id;
   newEntry.innerHTML =
-    '<p class="post-body">' + data.body + '</p>' +
+    '<p class="post-body">' + data.feeling + '</p>' +
     '<div class="post-meta">' +
       '<span>' + formatDate(data.created_at) + '</span>' +
       '<span class="post-actions">' +
@@ -128,7 +128,7 @@ async function editAffirmation(id) {
 
     var { error } = await client
       .from('This is Real.')
-      .update({ body: newBody })
+      .update({ feeling: newBody })
       .eq('id', id);
 
     if (error) { console.error(error); return; }
